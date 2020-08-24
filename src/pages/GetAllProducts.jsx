@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { getProducts } from "../Redux/actions/productAction";
 import { particularProductDetail } from "../Redux/actions/productAction";
 import axios from "axios";
+import { particularProduct } from "../Redux/actions/productType";
+import SingleProduct from "./SingleProduct";
 import "./GetAllProduct.css";
 class GetAllProducts extends Component {
     state = {
@@ -11,14 +14,19 @@ class GetAllProducts extends Component {
     getParticularProduct = async (e) => {
         e.preventDefault();
         const id = e.target.id;
+        console.log(id);
         this.props.particularProductDetail(id);
         this.props.history.push(`/singleProduct/?id=${id}`);
     };
     AddToFavo = async (e) => {
         e.preventDefault();
         const productId = e.target.id;
-        
-        
+        console.log(productId)
+
+        const userId = this.props.user.user.user.id;
+        const id = {
+            id: userId,
+        };
 
         if (localStorage.getItem("jwtToken")) {
             const res = await axios.post(
@@ -32,20 +40,20 @@ class GetAllProducts extends Component {
     };
 
     render() {
+        console.log(this.props.particularPro)
         const {
             category,
             city,
             date,
-          
+            description,
             photos,
             price,
             title,
-    
+            year,
             _id,
         } = this.props.data;
-        if (this.props.loading) {
-            return <h2>Loading...</h2>;
-        }
+        // return <h1>Loading</h1>
+
         return (
             <div>
                 <div class="product-card ">
@@ -89,6 +97,7 @@ class GetAllProducts extends Component {
                     </div>
                 </div>
             </div>
+            
         );
     }
 }

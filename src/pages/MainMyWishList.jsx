@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
+import isEmpty from "../utils/is-empty";
 import {withRouter} from "react-router-dom"
 class MainMyWishList extends Component {
     deleteProduct = async (e) => {
         const id = e.target.id;
-        await axios.post(
+        console.log(id);
+        const fetch = await axios.post(
             `https://market-time-be.herokuapp.com/user/deleteFromWishList/${id}`
         );
+        console.log(fetch.data);
         alert("Deleted product from Wishlist ");
         this.props.history.push("/user-dashboard");
+        window.location.reload();
     };
 
     render() {
+        console.log(this.props.product)
+        console.log(this.props.product.length !== 0);
         if (this.props.product.length!==0) {
             return (
                 <div>

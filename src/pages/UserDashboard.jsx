@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { userProfile } from ".././Redux/actions/userAction";
-import { logoutUser } from "../Redux/actions/userAction";
 import "./UserDashboard.css";
+import axios from "axios";
 const UserDashboard = (props) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         setUser(props.users);
-
+       
         console.log();
         // console.log(props.history.location.state)
     }, [props.users]);
@@ -19,24 +18,59 @@ const UserDashboard = (props) => {
 
         props.history.push({ pathname: "/editProfile", state: user });
     };
-    const handleLogout = async (e) => {
-        e.preventDefault();
-        props.logoutUser();
-        alert("Logout Successfully");
-        props.history.push("/");
-    };
     const handleMyAdds = async (e) => {
-        e.preventDefault();
-        props.history.push("/my-Ads");
+        e.preventDefault()
+        //  const fetch = await axios.get(
+        //      "https://market-time-be.herokuapp.com/userMyPro"
+        //  );
+        //  console.log(fetch.data);
+        props.history.push({
+            pathname: "/my-Ads",
+            // state: { detail: fetch.data },
+        });
+        // props.history.push({
+        //     pathname: "/my-Ads",
+        // });
     };
     const handleMyFavo = async (e) => {
         e.preventDefault();
-        props.history.push("/my-wishlist");
+        
+        console.log(fetch.data);
+        props.history.push({
+            pathname: "/my-wishlist"
+            
+        });
+
+        
     };
+    // handleProduct = async (e) => {
+    //     const fetch = await axios.get(
+    //         "https://market-time-be.herokuapp.com/userMyPro"
+    //     );
+    //     console.log(fetch.data);
+    //     this.props.history.push({
+    //         pathname: "/my-adds",
+    //         state: { detail: fetch.data },
+    //     });
+    // };
+    console.log(user);
     return (
         <div>
             {user !== null ? (
                 <div className="container-fluid cost">
+                    {/* <h1>user dashboard</h1>
+                    <h2>Hello,{user.name}</h2>
+                    <div>
+                        <img src={user.image} alt={user.image} />
+                    </div>
+                    <button onClick={handleEdit} className="btn btn-primary">
+                        Edit Profile
+                    </button>
+                    <button onClick={handleMyAdds} className="btn btn-primary">
+                        My Ads
+                    </button>
+                    <button className="btn btn-primary">Favorite</button> */}
+
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-3 main">
@@ -64,17 +98,14 @@ const UserDashboard = (props) => {
                                     <li>Edit Profile</li>
                                 </div>
                                 <hr class="hr" />
-                                <div onClick={handleLogout} class="li1">
+                                <div class="li1">
                                     <li>Logout</li>
                                 </div>
                             </ul>
                         </div>
+
                         <div class="col-md-6 mid">
-                            <img
-                                class="image"
-                                src={user.image}
-                                alt={user.image}
-                            />
+                            <img class="image" src={user.image} />
                             <div class="name">
                                 <h2 style={{ color: "yellow" }}>
                                     Hello, {user.name}
@@ -88,6 +119,7 @@ const UserDashboard = (props) => {
                                 <h4>City: {user.city}</h4>
                                 <h4>Contact Details: {user.contactNo}</h4>
                                 <h4>Facebook Profile: {user.facebook}</h4>
+
                                 <h4>Instagram Profile: {user.instagram}</h4>
                             </div>
                         </div>
@@ -103,9 +135,7 @@ const UserDashboard = (props) => {
 const mapStatetoprops = (state) => {
     return {
         users: state.user.user,
-        pro: state,
+        pro:state
     };
 };
-export default connect(mapStatetoprops, { userProfile, logoutUser })(
-    withRouter(UserDashboard)
-);
+export default connect(mapStatetoprops, { userProfile })(UserDashboard);

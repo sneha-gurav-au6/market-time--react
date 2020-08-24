@@ -15,10 +15,9 @@ class Navbar extends Component {
             state: this.props.user.user.user,
         });
     };
-   
     render() {
-        const { isAuthenticated } = this.props.user.user;
-        console.log(this.props.user.user.user.image);
+
+        const { isAuthenticated, user } = this.props.user.user;
         const registerLogin = (
             <>
                 <li className="nav-item">
@@ -38,23 +37,9 @@ class Navbar extends Component {
         const Logout = (
             <>
                 <li className="nav-item">
-                    <a
-                        className="nav-link"
-                        href="#/"
-                        onClick={this.userDashboard}
-                    >
-                        <img
-                            src={this.props.user.user.user.image}
-                            alt={this.props.user.user.user.image}
-                            style={{
-                                height: "50px",
-                                width: "50px",
-                                "border-radius": "50%",
-                            }}
-                        />
-                        
-                        {/* <p>Profile</p> */}
-                        <span className="spa"> Profile</span>
+                    <a className="nav-link" onClick={this.userDashboard}>
+                        <i class="far fa-user-circle fa-3x fa-fw"> </i>
+                        Profile
                     </a>
                 </li>
                 <li className="nav-item">
@@ -77,12 +62,11 @@ class Navbar extends Component {
         );
         return (
             <div>
-                <div className=" container-fluid fix">
+                <div className=" container-fluid ">
                     <nav className="navbar navbar-expand-lg navbar-dark back">
                         <img
                             style={{ width: "150px", height: "100px" }}
                             src={img}
-                            alt={img}
                         />
                         <button
                             className="navbar-toggler"
@@ -110,6 +94,8 @@ class Navbar extends Component {
                                         </span>
                                     </a>
                                 </li>
+
+                                
                             </ul>
 
                             <ul className="navbar-nav mr-0 my-2 my-lg-0">

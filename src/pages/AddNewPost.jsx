@@ -3,9 +3,15 @@ import axios from "axios";
 import "./addProduct.css";
 import { connect } from "react-redux";
 import { addPro } from "../Redux/actions/productAction";
-import { withRouter } from "react-router-dom";
 class AddNewPost extends Component {
     state = {
+        // title: "",
+        // category: "",
+        // city: "",
+        // price: "",
+        // description: "",
+        // brand: "",
+        // year: "",
         image: [],
         errors: {},
         token: null,
@@ -18,24 +24,48 @@ class AddNewPost extends Component {
     }
     handleFormData = async (e) => {
         e.preventDefault();
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        const category = e.target.category.value;
+        const city = e.target.city.value;
+        const brand = e.target.brand.value;
+        const price = e.target.price.value;
+        const year = e.target.year.value;
+
         const formData = new FormData(e.target);
+        console.log(this.state.token);
+        // formData.append("image", this.state.image);
+        // formData.append("title", title);
+        // formData.append("category", category);
+        // formData.append("city", city);
+        // formData.append("brand", brand);
+        // formData.append("year", year);
+        // formData.append("price", price);
+        // formData.append("description", description);
+        // formData.append(
+        //     "Authorization",
+        //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzE3YjMzMDg5YTA5MDAwNDc0NTZlNSIsIm1ldGhvZCI6ImxvY2FsIiwibmFtZSI6ImltcmFuIiwiZW1haWwiOiJpbXJhbndvcmxkQGdtYWlsLmNvbSIsImltYWdlIjoiaHR0cHM6Ly93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9hbnl0aGluZz9zPTIwMCZkPW1tIiwiaWF0IjoxNTk3MzA2NDM1LCJleHAiOjE1OTczMTAwMzV9.enK5UMDCYbKVxNUCqYwFLRnfnSrWXdHvmwWpeallfRQ"
+        // );
+        
         const datas = await axios.post(
             "https://cors-anywhere.herokuapp.com/https://market-time.herokuapp.com/addProducts",
+
             formData
         );
-        if (datas.status===200){
-            alert("Uploaded Successfully")
-            this.props.history.push("/my-Ads");
-        } 
+        console.log(datas.data);
         
     };
+    //  Authentication: `Bearer ${data.jwtToken}`,
     handleChange = (event) => {
+        //    this.setState({ image: [...event.target.files][0] });
         const { value } = event.target;
         let newState = this.state;
         newState.image.push(value);
         this.setState(newState);
     };
     render() {
+        console.log(this.props.auth);
+        console.log(this.state.image);
         return (
             <div className="container-fluid w-50">
                 <form
@@ -53,6 +83,7 @@ class AddNewPost extends Component {
                             placeholder="Title"
                         />
                     </div>
+                    {/* Description */}
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">
                             Post Description
@@ -64,6 +95,7 @@ class AddNewPost extends Component {
                             name="description"
                         ></textarea>
                     </div>
+                    {/* select category */}
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">
                             Select Category
@@ -83,6 +115,7 @@ class AddNewPost extends Component {
                             <option>Furniture</option>
                         </select>
                     </div>
+                    {/* Select City */}
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">
                             Select City
@@ -101,6 +134,7 @@ class AddNewPost extends Component {
                         </select>
                     </div>
 
+                    {/* Enter Brand */}
                     <div class="form-group ">
                         <label for="exampleInputEmail1">Enter Brand</label>
                         <input
@@ -112,6 +146,7 @@ class AddNewPost extends Component {
                             name="brand"
                         />
                     </div>
+                    {/* Enter Amount */}
                     <div class="form-group">
                         <label class="sr-only" for="inlineFormInputGroup">
                             Enter Selling Price
@@ -132,6 +167,7 @@ class AddNewPost extends Component {
                             />
                         </div>
                     </div>
+                    {/* Year */}
                     <div class="form-group ">
                         <label for="exampleInputEmail1">Enter Year</label>
                         <input
@@ -143,6 +179,7 @@ class AddNewPost extends Component {
                             name="year"
                         />
                     </div>
+                    {/* Select Images */}
                     <h3>Select Images</h3>
 
                     <div>
@@ -223,6 +260,7 @@ class AddNewPost extends Component {
                         </div>
                         {/*  */}
                     </div>
+
                     <button type="submit" class="btn btn-primary">
                         Submit
                     </button>
@@ -237,4 +275,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { addPro })(withRouter(AddNewPost));
+export default connect(mapStateToProps, { addPro })(AddNewPost);

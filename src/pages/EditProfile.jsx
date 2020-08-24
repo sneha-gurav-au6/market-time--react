@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Profiler } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { editProfile } from "../Redux/actions/userAction";
-import { withRouter } from "react-router-dom";
 class EditProfile extends Component {
     state = {
         id: "",
@@ -17,24 +17,35 @@ class EditProfile extends Component {
         e.preventDefault();
         this.setState({ id: this.props.history.location.state.id });
         const { name, value } = e.target;
+        console.log(name, value);
         this.setState({ [name]: value });
     };
 
     textSubmit = async (e) => {
         e.preventDefault();
+        const newUser = {
+            id: this.state.id,
+            name: this.state.name,
+            city: this.state.city,
+            contactNo: this.state.contactNo,
+            facebook: this.state.facebook,
+            youtube: this.state.youtube,
+            instagram: this.state.instagram,
+            image: this.state.image,
+        };
         const formData = new FormData(e.target);
-        this.props.editProfile({
-            editData: formData,
-            history: this.props.history,
-        });
+        this.props.editProfile(formData);
     };
     render() {
-        console.log(this.props.history.location);
+        console.log(this.props.history.location.state);
         return (
             <div className="create-profile mt-4">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
+                            {/* <Link to="/dashboard" className="btn btn-light">
+                                Go Back / Dashboard
+                            </Link> */}
                             <h1 className="display-3 text-center my-2">
                                 Edit Your Profile
                             </h1>
@@ -42,6 +53,8 @@ class EditProfile extends Component {
                                 Let's get some information to make your profile
                                 stand out
                             </p>
+                            {/* Edit Profile Picture */}
+                            {/* Edit Profile */}
 
                             <form
                                 onSubmit={this.textSubmit}
@@ -176,4 +189,4 @@ class EditProfile extends Component {
     }
 }
 
-export default connect(null, { editProfile })(withRouter(EditProfile));
+export default connect(null, { editProfile })(EditProfile);

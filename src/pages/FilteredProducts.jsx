@@ -5,7 +5,7 @@ class FilteredProducts extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <div className="row">
+                <div className="">
                     {!isEmpty(this.props.history.location.state.data)
                         ? this.props.history.location.state.data.map(
                               (key, index) => (

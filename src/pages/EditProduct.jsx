@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { render } from "@testing-library/react";
 
 class EditProduct extends Component {
     state = {
@@ -13,10 +14,24 @@ class EditProduct extends Component {
     handleFormData = async (e) => {
         e.preventDefault();
         const id = this.props.history.location.state;
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        const category = e.target.category.value;
+        const city = e.target.city.value;
+        const brand = e.target.brand.value;
+        const price = e.target.price.value;
+        const year = e.target.year.value;
+        console.log(e.target);
         const formData = new FormData(e.target);
         formData.append("id", id);
+        console.log(formData);
 
-        
+        const config = {
+            headers: {
+                Authorization: `Bearer ${this.state.token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        };
         const datas = await axios.post(
             "https://market-time-be.herokuapp.com/editproduct",
             formData
@@ -25,6 +40,7 @@ class EditProduct extends Component {
     };
 
     handleChange = (event) => {
+        //    this.setState({ image: [...event.target.files][0] });
         const { value } = event.target;
         let newState = this.state;
         newState.image.push(value);

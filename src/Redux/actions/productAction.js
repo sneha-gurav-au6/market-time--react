@@ -1,4 +1,4 @@
-import { GetAllProduct, particularProduct,particularProductOwner } from "./productType";
+import { GetAllProduct, particularProduct,AddProduct,particularProductOwner } from "./productType";
 import axios from "axios";
 export const getProducts = () => async (dispatch) => {
     const res = await axios("https://market-time.herokuapp.com/allProduct/1");

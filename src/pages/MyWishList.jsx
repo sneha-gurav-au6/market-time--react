@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import MainMyWishList from "./MainMyWishList";
@@ -15,7 +15,6 @@ class MyWishList extends Component {
             "https://market-time-be.herokuapp.com/userWishList"
         );
         // this.setState(fetch.data)
-        console.log(fetch.data)
 
         const arr2 = fetch.data.flat();
         this.setState({ data: arr2 });
@@ -27,12 +26,9 @@ class MyWishList extends Component {
         if (this.state.data !== null) {
             console.log(isEmpty(this.state.data));
             if (isEmpty(this.state.data)) {
-                return (
-                    <div className="container-fluid">
-                        <img src="https://res.cloudinary.com/dlcckjhpj/image/upload/v1598105518/tenor_vcbjih.gif" alt="img"/>
-                        <h1>NO Product Added to Favourite List</h1>
-                    </div>
-                );
+                return (<div className="container-fluid">
+                    <h1>NO Product Added to Favourite List</h1>
+                </div>)
             } else {
                 return this.state.data.map((d, index) => (
                     <div>

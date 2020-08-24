@@ -1,23 +1,30 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import "./MainUserMyAdds.css";
+import { withRouter, Link } from "react-router-dom";
+import "./MainUserMyAdds.css"
+import { connect } from "react-redux";
 import axios from "axios";
+
+
+// import PropTypes from "prop-types";
+// import classnames from "classnames";
+
 class MainUserMyAdds extends Component {
     editProduct = (e) => {
         e.preventDefault();
         const id = e.target.id;
-
+        console.log(id);
         // this.props.particularProductEdit(id)
         this.props.history.push({ pathname: "/edit-product", state: id });
     };
     deletProduct = async (e) => {
         const id = e.target.id;
-        await axios.post(
+
+        const fetch = await axios.post(
             `https://market-time-be.herokuapp.com/deleteProduct/${id}`
         );
-
-        alert("Add Deleted Successfully");
-        window.location.reload();
+        console.log(fetch.data);
+        alert("Product Deleted ,Refresh page");
+        this.props.history.push('/user-dashboard')
     };
     render() {
         console.log(this.props.product);
