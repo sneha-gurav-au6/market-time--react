@@ -40,7 +40,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Image} />
-          <Route exact path="/" component={Category} />
+         
         
             <Route exact path="/register" component={Register} />
        
