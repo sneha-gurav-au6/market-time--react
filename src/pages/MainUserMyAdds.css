@@ -1,10 +1,16 @@
-/* .cotm{
+.cot {
+    margin-top: 10px;
+}
+.cotm1 {
+    height: 200px;
+    width: 320px;
+    background: linear-gradient(to right, #b79891, #94716b);
 
 }
-.cotm1{
- margin: auto;
-}
-.cotm1 img{
-    height: 200px;
+.cotm1 img {
+    height: 100%;
     width: 100%;
-} */
+}
+.btnn{
+    background-color: rgba(0, 0,0, 0.5);
+}

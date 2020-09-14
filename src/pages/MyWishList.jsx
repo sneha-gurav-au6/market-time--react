@@ -1,10 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import MainMyWishList from "./MainMyWishList";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import isEmpty from "../utils/is-empty";
+import NotFound from "../components/NotFound";
 class MyWishList extends Component {
     state = {
         data: null,
@@ -15,6 +16,7 @@ class MyWishList extends Component {
             "https://market-time-be.herokuapp.com/userWishList"
         );
         // this.setState(fetch.data)
+        console.log(fetch.data);
 
         const arr2 = fetch.data.flat();
         this.setState({ data: arr2 });
@@ -26,15 +28,21 @@ class MyWishList extends Component {
         if (this.state.data !== null) {
             console.log(isEmpty(this.state.data));
             if (isEmpty(this.state.data)) {
-                return (<div className="container-fluid">
-                    <h1>NO Product Added to Favourite List</h1>
-                </div>)
-            } else {
-                return this.state.data.map((d, index) => (
-                    <div>
-                        <MainMyWishList product={d} key={d._id} />
+                return (
+                    <div className="container-fluid">
+                        <NotFound />
                     </div>
-                ));
+                );
+            } else {
+                return (
+                    <div className="container-fluid">
+                        <div className="row">
+                            {this.state.data.map((d, index) => (
+                                <MainMyWishList product={d} key={d._id} />
+                            ))}
+                        </div>
+                    </div>
+                );
             }
         } else {
             return <Spinner />;

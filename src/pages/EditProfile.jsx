@@ -1,7 +1,7 @@
-import React, { Component, Profiler } from "react";
-import axios from "axios";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editProfile } from "../Redux/actions/userAction";
+import { withRouter } from "react-router-dom";
 class EditProfile extends Component {
     state = {
         id: "",
@@ -17,55 +17,51 @@ class EditProfile extends Component {
         e.preventDefault();
         this.setState({ id: this.props.history.location.state.id });
         const { name, value } = e.target;
-        console.log(name, value);
         this.setState({ [name]: value });
     };
 
     textSubmit = async (e) => {
         e.preventDefault();
-        const newUser = {
-            id: this.state.id,
-            name: this.state.name,
-            city: this.state.city,
-            contactNo: this.state.contactNo,
-            facebook: this.state.facebook,
-            youtube: this.state.youtube,
-            instagram: this.state.instagram,
-            image: this.state.image,
-        };
         const formData = new FormData(e.target);
-        this.props.editProfile(formData);
+        this.props.editProfile({
+            editData: formData,
+            history: this.props.history,
+        });
     };
     render() {
-        console.log(this.props.history.location.state);
+        console.log(this.props.history.location);
         return (
             <div className="create-profile mt-4">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            {/* <Link to="/dashboard" className="btn btn-light">
-                                Go Back / Dashboard
-                            </Link> */}
-                            <h1 className="display-3 text-center my-2">
+                            <h1
+                                style={{ color: "rgba(249, 107, 126, 1)" }}
+                                className="display-3 text-center my-2"
+                            >
                                 Edit Your Profile
                             </h1>
                             <p className="lead text-center">
                                 Let's get some information to make your profile
                                 stand out
                             </p>
-                            {/* Edit Profile Picture */}
-                            {/* Edit Profile */}
 
                             <form
                                 onSubmit={this.textSubmit}
                                 encType="multipart/form-data"
                             >
+                                <small className="form-text text-muted">
+                                    Select Your Profile Image
+                                </small>
                                 <input
                                     type="file"
                                     name="image"
                                     onChange={this.textHandle}
                                 />
                                 <div className="form-group">
+                                    <small className="form-text text-muted">
+                                        Enter Your Name
+                                    </small>
                                     <input
                                         type="text"
                                         className="form-control form-control-lg"
@@ -74,11 +70,11 @@ class EditProfile extends Component {
                                         onChange={this.textHandle}
                                         required
                                     />
-                                    <small className="form-text text-muted">
-                                        Enter Your Name
-                                    </small>
                                 </div>
                                 <div className="form-group">
+                                    <small className="form-text text-muted">
+                                        Select your city
+                                    </small>
                                     <select
                                         className="form-control form-control-lg"
                                         name="city"
@@ -90,12 +86,12 @@ class EditProfile extends Component {
                                             Bangalore
                                         </option>
                                         <option value="Mumbai"> Mumbai</option>
-                                        <option value="Kolkata">Kolkata</option>
+                                        <option value="Hydrabad">
+                                            Hydrabad
+                                        </option>
                                         <option value="Chennai">Chennai</option>
+                                        <option value="Pune">Pune</option>
                                     </select>
-                                    <small className="form-text text-muted">
-                                        Select your city onChange=
-                                    </small>
                                 </div>
                                 <div className="input-group mb-0">
                                     <div className="input-group-prepend">
@@ -189,4 +185,4 @@ class EditProfile extends Component {
     }
 }
 
-export default connect(null, { editProfile })(EditProfile);
+export default connect(null, { editProfile })(withRouter(EditProfile));

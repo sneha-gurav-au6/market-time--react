@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./category.css"
+import "./category.css";
 class Category extends Component {
     render() {
         return (
@@ -39,11 +39,11 @@ class Category extends Component {
                             </p>
                         </div>
                     </div>
-                    <div class="card border-secondary bg-light mb-3 col-md-3">
-                        <div class="card-header">Educational</div>
-                        <div class="card-body text-secondary">
-                            <h5 class="card-title">Secondary card title</h5>
-                            <p class="card-text">
+                    <div className="card border-secondary bg-light mb-3 col-md-3">
+                        <div className="card-header">Educational</div>
+                        <div className="card-body text-secondary">
+                            <h5 className="card-title">Secondary card title</h5>
+                            <p className="card-text">
                                 Some quick example text to build on the card
                                 title and make up the bulk of the card's
                                 content.
@@ -85,11 +85,11 @@ class Category extends Component {
                             </p>
                         </div>
                     </div>
-                    <div class="card border-secondary bg-light mb-3 col-md-3">
-                        <div class="card-header">Fashion</div>
-                        <div class="card-body text-secondary">
-                            <h5 class="card-title">Secondary card title</h5>
-                            <p class="card-text">
+                    <div className="card border-secondary bg-light mb-3 col-md-3">
+                        <div className="card-header">Fashion</div>
+                        <div className="card-body text-secondary">
+                            <h5 className="card-title">Secondary card title</h5>
+                            <p className="card-text">
                                 Some quick example text to build on the card
                                 title and make up the bulk of the card's
                                 content.

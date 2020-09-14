@@ -1,8 +1,8 @@
 import {
-  RegisterUser,
-  LoginUser,
-  UserProfile,
-  Get_Error,
+    RegisterUser,
+    LoginUser,
+    UserProfile,
+    Get_Error,
 } from "../actions/userType";
 import isEmpty from "../../utils/is-empty";
 const INITIAL_STATE = {
@@ -36,12 +36,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 UserProfile: action.payload,
             };
         }
-        case Get_Error :{
+        case Get_Error: {
             return {
                 ...state,
-                errors :action.payload
-            }
+                errors: action.payload,
+            };
         }
+
         default:
             return { ...state };
     }

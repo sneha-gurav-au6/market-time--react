@@ -17,51 +17,61 @@ import UserDashboard from "./pages/UserDashboard";
 import EditProfile from "./pages/EditProfile";
 import MyAddsPage from "./pages/MyAddsPage";
 import EditProduct from "./pages/EditProduct";
-import EditMyAdds from "./pages/EditMyAdds";
-import Spinner from "./components/Spinner";
 import MyWishList from "./pages/MyWishList";
-
-
+import ForgetPassword from "./pages/ForgetPassword";
+import ResetPassword from "./pages/ResetPassword";
 class App extends Component {
-  componentDidMount() {
-    // Check for token
-    if (localStorage.jwtToken) {
-      // Set token to Auth header
-      setAuthToken(localStorage.jwtToken);
-      // Decode jwt token
-      const decode = jwt_decode(localStorage.jwtToken);
-      // Set user and isAuthenticated
-      this.props.setCurrentUser(decode);
+    componentDidMount() {
+        if (localStorage.jwtToken) {
+            setAuthToken(localStorage.jwtToken);
+            const decode = jwt_decode(localStorage.jwtToken);
+            this.props.setCurrentUser(decode);
+        }
     }
-  }
-  render() {
-    return (
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Image} />
-         
-        
-            <Route exact path="/register" component={Register} />
-       
+    render() {
+        return (
+            <div className="App">
+                <Navbar />
+                <Switch>
+                    <Route exact path="/" component={Image} />
 
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/addPost" component={AddNewPost} />
-          <Route exact path="/search-result" component={AddNewPost} />
-          <Route exact path="/my-wishlist" component={MyWishList} />
-          <Route exact path="/user-dashboard" component={UserDashboard} />
-          <Route exact path="/editProfile" component={EditProfile} />
-          <Route exact path="/my-Ads" component={MyAddsPage} />
-          <Route
-            exact
-            path="/filter-product/:search"
-            component={FilteredProducts}
-          />
-          <Route exact path="/edit-product" component={EditProduct} />
-          <Route exact path="/singleProduct" component={SingleProduct} />
-        </Switch>
-      </div>
-    );
-  }
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/addPost" component={AddNewPost} />
+                    <Route exact path="/search-result" component={AddNewPost} />
+                    <Route exact path="/my-wishlist" component={MyWishList} />
+                    <Route
+                        exact
+                        path="/user-dashboard"
+                        component={UserDashboard}
+                    />
+                    <Route exact path="/editProfile" component={EditProfile} />
+                    <Route exact path="/my-Ads" component={MyAddsPage} />
+                    <Route
+                        exact
+                        path="/filter-product/:search"
+                        component={FilteredProducts}
+                    />
+                    <Route exact path="/edit-product" component={EditProduct} />
+                    <Route
+                        exact
+                        path="/singleProduct"
+                        component={SingleProduct}
+                    />
+                    <Route
+                        exact
+                        path="/forget-password"
+                        component={ForgetPassword}
+                    />
+
+                    <Route
+                        exact
+                        path="/change-password/:slug"
+                        component={ResetPassword}
+                    />
+                </Switch>
+            </div>
+        );
+    }
 }
 export default connect(null, { setCurrentUser, setAuthToken })(App);
